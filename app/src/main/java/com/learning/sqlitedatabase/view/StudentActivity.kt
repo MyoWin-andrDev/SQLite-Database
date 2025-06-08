@@ -11,55 +11,74 @@ import com.learning.sqlitedatabase.model.StudentModel
 import com.learning.sqlitedatabase.myUtil.showToast
 
 class StudentActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityStudentBinding
-    private lateinit var studentDB : StudentDatabase
-    private lateinit var adapter : StudentAdapter
+
+    private lateinit var binding: ActivityStudentBinding
+    private lateinit var studentDB: StudentDatabase
+    private lateinit var adapter: StudentAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityStudentBinding.inflate(layoutInflater)
-        binding.apply {
-            setContentView(root)
-            studentDB = StudentDatabase(this@StudentActivity)
-            adapter = StudentAdapter(emptyList(),
-                onDeleteClick = {student -> showDeleteConfirmation(student)},
-                onItemLongClick = {student -> handleLongPressed(student)})
-            rvStudent.adapter = adapter
-            loadStudents()
-            binding.fbAddStudent.setOnClickListener{
-                Intent(this@StudentActivity, AddActivity::class.java).apply {
-                    startActivity(this)
-                }
-            }
-        }
+        setupBinding()
+        setupDatabase()
+        setupRecyclerView()
+        setupListeners()
+        loadStudents()
     }
 
     override fun onResume() {
         super.onResume()
         loadStudents()
     }
-    private fun loadStudents(){
-        val studentList = studentDB.getAllStudents()
-        adapter.updateStudent(studentList)
+
+    private fun setupBinding() {
+        binding = ActivityStudentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
-    private fun showDeleteConfirmation(student: StudentModel){
+
+    private fun setupDatabase() {
+        studentDB = StudentDatabase(this)
+    }
+
+    private fun setupRecyclerView() {
+        adapter = StudentAdapter(
+            studentList = emptyList(),
+            onDeleteClick = { student -> showDeleteConfirmation(student) },
+            onEditClick = { student -> navigateToEditStudent(student) }
+        )
+        binding.rvStudent.adapter = adapter
+    }
+
+    private fun setupListeners() {
+        binding.fbAddStudent.setOnClickListener {
+            startActivity(Intent(this, AddActivity::class.java))
+        }
+    }
+
+    private fun loadStudents() {
+        val students = studentDB.getAllStudents()
+        adapter.updateStudent(students)
+    }
+
+    private fun showDeleteConfirmation(student: StudentModel) {
         AlertDialog.Builder(this)
             .setTitle("Delete")
-            .setMessage("Are you sure to delete?")
+            .setMessage("Are you sure you want to delete ${student.studentName}'s record?")
             .setCancelable(true)
-            .setPositiveButton("Delete"){_,_ ->
-                if(studentDB.deleteStudent(student.s_id!!)) {
-                    showToast("${student.s_name}'s records deleted successfully")
+            .setPositiveButton("Delete") { _, _ ->
+                if (studentDB.deleteStudent(student.studentId!!)) {
+                    showToast("${student.studentName}'s record deleted successfully")
+                    loadStudents()
                 }
-                loadStudents()
             }
             .setNegativeButton("Cancel", null)
             .show()
     }
 
-    private fun handleLongPressed(student : StudentModel){
-        Intent(this@StudentActivity, AddActivity::class.java).also {
-            it.putExtra("student",student)
+    private fun navigateToEditStudent(student: StudentModel) {
+        Intent(this, AddActivity::class.java).also {
+            it.putExtra("student", student)
             startActivity(it)
         }
     }
+
 }
