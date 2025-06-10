@@ -13,7 +13,7 @@
         android:theme="@style/Theme.SQLiteDatabase"
         tools:targetApi="31" >
         <activity
-            android:name=".view.AddActivity"
+            android:name=".view.AddStudentActivity"
             android:exported="false" />
         <activity
             android:name=".view.StudentActivity"

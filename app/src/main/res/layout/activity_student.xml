@@ -7,10 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".view.StudentActivity">
 
+    <Toolbar
+        android:id="@+id/tbMain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="?attr/colorPrimary"
+        android:title="Students"
+        android:titleTextColor="?attr/colorOnPrimary"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStudent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tbMain"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -22,5 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="32dp"
         android:src="@drawable/ic_add"
+        android:background="?attr/colorSecondary"
         app:tint="@android:color/white"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

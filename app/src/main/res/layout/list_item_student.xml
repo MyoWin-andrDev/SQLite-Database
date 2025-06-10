@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -17,13 +18,24 @@
         <!-- Student Name -->
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintEnd_toStartOf="@id/tvStudentId"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="John Doe" />
+
+        <!--        Gender Icon-->
+        <ImageView
+            android:id="@+id/ivGender"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/male"
+            app:layout_constraintStart_toEndOf="@id/tvName"
+            app:layout_constraintTop_toTopOf="@id/tvName"
+            app:layout_constraintBottom_toBottomOf="@id/tvName"
+            android:layout_marginStart="16dp"/>
 
         <!-- Student ID -->
         <TextView
@@ -58,22 +70,13 @@
 
         <!-- Room Number -->
         <TextView
-            android:id="@+id/tvRoom"
+            android:id="@+id/tvRoomNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvGrade"
-            tools:text="Room: " />
-
-        <TextView
-            android:id="@+id/tvRoomNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@id/tvRoom"
-            app:layout_constraintTop_toBottomOf="@id/tvGrade"
-            tools:text="101" />
+            tools:text="Room: 101" />
 
         <!-- Delete Button -->
         <Button
