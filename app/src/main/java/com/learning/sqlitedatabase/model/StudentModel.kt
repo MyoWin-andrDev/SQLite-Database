@@ -9,5 +9,5 @@ data class StudentModel (
     val studentName : String,
     val grade : String,
     val roomNo : String,
-    val gender : Int,
+    val gender : String,
     val fatherName : String) : Parcelable

@@ -11,13 +11,13 @@
         android:id="@+id/tbHome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="?attr/colorPrimary"
+        android:navigationIcon="@drawable/ic_back"
         android:title="Add Student"
         android:titleTextColor="?attr/colorOnPrimary"
-        android:navigationIcon="@drawable/ic_back"
-        android:background="?attr/colorPrimary"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -39,8 +39,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:hint="Name"
+                app:counterEnabled="true"
                 app:counterMaxLength="30"
-                android:hint="Name">
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etName"
@@ -55,15 +57,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:counterMaxLength="30"
-                android:hint="Grade">
+                android:hint="Grade"
+                app:counterEnabled="true"
+                app:counterMaxLength="2"
+                app:errorEnabled="true"
+                app:prefixText="Grade">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etGrade"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:maxLength="30" />
+                    android:maxLength="2" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -71,15 +76,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:counterMaxLength="30"
-                android:hint="Room No">
+                android:hint="Room No"
+                app:counterEnabled="true"
+                app:counterMaxLength="4"
+                app:errorEnabled="true"
+                app:prefixText="Room">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etRoomNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:maxLength="30" />
+                    android:maxLength="4" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -115,14 +123,17 @@
                 android:layout_height="wrap_content"
                 android:text="Gender is required"
                 android:textColor="?attr/colorError"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/fatherNameInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Father's Name">
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                android:hint="Father's Name"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etFatherName"

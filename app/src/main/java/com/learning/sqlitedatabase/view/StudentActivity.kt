@@ -5,9 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.learning.sqlitedatabase.Utils.Constants
+import com.learning.sqlitedatabase.Utils.Localization
 import com.learning.sqlitedatabase.Utils.showToast
 import com.learning.sqlitedatabase.adapter.StudentAdapter
-import com.learning.sqlitedatabase.database.Constants
 import com.learning.sqlitedatabase.database.DBInstance
 import com.learning.sqlitedatabase.database.StudentDB
 import com.learning.sqlitedatabase.databinding.ActivityStudentBinding
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 class StudentActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStudentBinding
-    private lateinit var studentDB : StudentDB
+    private lateinit var studentDB: StudentDB
     private lateinit var adapter: StudentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,23 +64,21 @@ class StudentActivity : AppCompatActivity() {
 
     private fun showDeleteConfirmation(student: StudentModel) {
         AlertDialog.Builder(this)
-            .setTitle(Constants.Dialog.DELETE_TITLE)
-            .setMessage(Constants.Dialog.DELETE_MESSAGE.format(student.studentName))
+            .setTitle(Localization.deleteTitle)
+            .setMessage(Localization.deleteMessage.format(student.studentName))
             .setCancelable(true)
-            .setPositiveButton(Constants.Dialog.DELETE_POSITIVE) { _, _ ->
+            .setPositiveButton(Localization.deletePositive) { _, _ ->
                 deleteStudent(student)
             }
-            .setNegativeButton(Constants.Dialog.DELETE_NEGATIVE, null)
+            .setNegativeButton(Localization.deleteNegative, null)
             .show()
     }
 
     private fun deleteStudent(student: StudentModel) {
-        lifecycleScope.launch {
-            val deletedRows = studentDB.deleteStudent(student.studentId)
-            if (deletedRows) {
-                showToast(Constants.Messages.DELETE_SUCCESS.format(student.studentName))
-                loadStudents()
-            }
+        val deletedRows = studentDB.deleteStudent(student.studentId)
+        if (deletedRows) {
+            showToast(Localization.deleteSuccess.format(student.studentName))
+            loadStudents()
         }
     }
 
